@@ -5,8 +5,6 @@ The spyware uses the discord api to save the data for complete anonymity. You do
 I do not take responsibility for wrong use of the discord-spyware. It's made for educational purposes only.
 
 ## Set up
-I'm going to explain how to set up the script first and then how to set up the Discord server.
-
 ### Script
 You'll need to install some libaries first:
 ```
