@@ -32,7 +32,7 @@ You can use your fourth channel to interact with the bot to keep everything else
 
 ## Commands
 
-You can see all commands when you use `$help` in a discord channel. For more information on a command you can use `$help [command]`. Don't forget to use two backslashes if you're giving a path of the system. Because Discord and Python require two backslashes to realies that you want to use one backslash instead of an special character. If there is an argument for a command which includes an blank space you can surround it with '""' and then the bot should realise that it is one argument and not two.
+You can see all commands when you use `$help` in a discord channel. For more information on a command you can use `$help [command]`. Don't forget to use two backslashes if you're giving a path of the system. Because Discord and Python require two backslashes to realies that you want to use one backslash instead of a special character. If there is an argument for a command which includes an blank space you can surround it with '""' and then the bot should realise that it is one argument and not two.
 For Example:
 ```
 $cd "c:\\user\\my dog"
